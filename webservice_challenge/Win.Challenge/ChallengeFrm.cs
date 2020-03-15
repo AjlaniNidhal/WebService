@@ -17,12 +17,13 @@ namespace Win.Challenge
         {
             InitializeComponent();
         }
-        private void Fibonacci()
+        private async void Fibonacci()
         {
 
             ChallengeServiceReference.ChallengeServiceSoapClient client = new ChallengeServiceReference.ChallengeServiceSoapClient();
-            Thread.Sleep(5000);
-            MessageBox.Show(client.Fibonacci(10).ToString());
+            Thread.Sleep(2000);
+            int result = await client.FibonacciAsync(10);
+            MessageBox.Show(result.ToString());
         }
 
         private void btn_Fibonancci_Click(object sender, EventArgs e)

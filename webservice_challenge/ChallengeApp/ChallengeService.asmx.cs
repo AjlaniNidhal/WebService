@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Xml;
+using System.Web.Script.Services;
 
 namespace ChallengeApp
 {
@@ -18,12 +19,14 @@ namespace ChallengeApp
     // [System.Web.Script.Services.ScriptService]
     public class ChallengeService : System.Web.Services.WebService
     {
-
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+       
         [WebMethod]
         public int Fibonacci(int n)
         {
             try
             {
+                log.Info(string.Format("Request :{0}", n.ToString()));
                 int firstnumber = 0, secondnumber = 1, result = 0;
 
                 if (n < 1 || n > 100)
@@ -42,28 +45,41 @@ namespace ChallengeApp
                     firstnumber = secondnumber;
                     secondnumber = result;
                 }
-
+                log.Info(string.Format("Response :{0}", n.ToString()));
                 return result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                log.Error(e.Message);
                 return -1;
             }
 
         }
 
         [WebMethod]
+        [ScriptMethod(ResponseFormat =ResponseFormat.Json)]
         public string XmlToJson(string xml)
         {
-            string jsonResult = string.Empty;
+            try
+            {
+                log.Info(string.Format("Request :{0}", xml));
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
+                string jsonResult = string.Empty;
 
-            jsonResult = JsonConvert.SerializeXmlNode(doc);
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(xml);
 
-            return jsonResult;
+                jsonResult = JsonConvert.SerializeXmlNode(doc);
+
+                log.Info(string.Format("Response :{0}", jsonResult));
+                return jsonResult;
+
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message);
+                return "Bad Xml format";
+            }
         }
    }
 }
