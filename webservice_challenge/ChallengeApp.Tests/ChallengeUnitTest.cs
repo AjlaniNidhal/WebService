@@ -3,19 +3,23 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ChallengeApp.Tests
 {
+    /// <summary>
+    /// Classe de test du service ChallengeService
+    /// </summary>
     [TestClass]
     public class ChallengeUnitTest
     {
         #region -- Webservice initialisation
 
-        // The client object for the WCF service.
         private static ChallengeServiceReference.ChallengeServiceSoapClient _service;
 
+      
         [ClassInitialize]
         public static void InitializeClass(TestContext ctx)
         {
             _service = new ChallengeServiceReference.ChallengeServiceSoapClient();
         }
+
 
         [ClassCleanup]
         public static void CleanupClass()
@@ -24,6 +28,11 @@ namespace ChallengeApp.Tests
         }
 
         #endregion
+
+
+        /// <summary>
+        /// Méthode de test de la fonction Fibonacci
+        /// </summary>
         [TestMethod]
         public void TestFibonacci()
         {

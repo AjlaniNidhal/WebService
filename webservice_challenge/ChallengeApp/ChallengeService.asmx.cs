@@ -19,8 +19,13 @@ namespace ChallengeApp
     // [System.Web.Script.Services.ScriptService]
     public class ChallengeService : System.Web.Services.WebService
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("ServiceLog");
        
+        /// <summary>
+        /// Fibonacci web method
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         [WebMethod]
         public int Fibonacci(int n)
         {
@@ -56,6 +61,12 @@ namespace ChallengeApp
 
         }
 
+
+        /// <summary>
+        /// XmlToJson web method
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
         [WebMethod]
         [ScriptMethod(ResponseFormat =ResponseFormat.Json)]
         public string XmlToJson(string xml)
